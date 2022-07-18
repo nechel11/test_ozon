@@ -25,7 +25,8 @@ func Db_connect() *sql.DB{
 	return db
 }
 
-func insert_url(short_url, long_url string, db *sql.DB) error{
+
+func insert_url_db(short_url, long_url string, db *sql.DB) error{
 	_, err := db.Exec(fmt.Sprintf("INSERT INTO records (long_url, short_url) VALUES ('%s', '%s')", long_url, short_url))
 	if err != nil {		
 		return err

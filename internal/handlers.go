@@ -33,6 +33,7 @@ func Short_url(w http.ResponseWriter, r *http.Request){
 	}
 	if err := decoder_json(&url_req, r.Body); err != nil{	
 		if_error_respose(w, err, http.StatusBadRequest)
+		return
 	}
 	if err_db := if_data_exists(&if_short_exists, url_req.Url, db);err_db != nil{
 		if_error_respose(w, errors.New("db check for existence error"), http.StatusInternalServerError)
@@ -42,19 +43,18 @@ func Short_url(w http.ResponseWriter, r *http.Request){
 		var err_response error
 		if encoded_string.Url, err_response = get_short_url(url_req.Url, db); err_response != nil{
 			if_error_respose(w, errors.New("getting short url from db error"), http.StatusBadRequest)
-		}
-		log.Println("encoded string has been sent")
-		send_response(w, encoded_string)	
-	} else {
-			encoded_string.Url = hash_func(url_req.Url)
-		if err := insert_url(encoded_string.Url, url_req.Url, db); err != nil{
-			if_error_respose(w, errors.New("db adding data error"), http.StatusInternalServerError)
 			return
 		}
+		log.Println("encoded string has been sent")
+	} else {
+			encoded_string.Url = hash_func(url_req.Url)
+			if err := insert_url_db(encoded_string.Url, url_req.Url, db); err != nil{
+				if_error_respose(w, errors.New("db adding data error"), http.StatusInternalServerError)
+				return
+			}
 		log.Print(url_req.Url, " added to db with shortlink ", encoded_string, "\n")
-		
-		send_response(w, encoded_string)
 	}
+	send_response(w, encoded_string)	
 }
 
 func Long_url(w http.ResponseWriter, r *http.Request){

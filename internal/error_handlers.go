@@ -6,6 +6,7 @@ import (
 	"strconv"
 )
 
+// error handler
 
 func if_error_respose(w http.ResponseWriter, err error, number int){
 	log.Println(err.Error(), number)
