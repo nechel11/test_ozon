@@ -1,10 +1,9 @@
-package base
+package database
 
 import (
 	"database/sql"
 	"fmt"
 	"log"
-
 	_ "github.com/lib/pq"
 )
 

@@ -5,13 +5,13 @@ import (
 	"errors"
 	"log"
 	"net/http"
-	"github.com/nechel11/test_ozon/internal/base"
+	"github.com/nechel11/test_ozon/internal/database"
 	"github.com/nechel11/test_ozon/internal/utils"
 	"github.com/nechel11/test_ozon/internal/models"
 )
 
 func PG_handler(w http.ResponseWriter, r *http.Request){
-	var db *sql.DB = data.Db_connect()
+	var db *sql.DB = database.Db_connect()
 	if r.Method == "POST"{
 		short_output_handle_PG(w, r, db)
 	} else if r.Method == "GET"{
@@ -46,7 +46,7 @@ func short_output_handle_PG(w http.ResponseWriter, r *http.Request, db *sql.DB){
 		log.Println("encoded string has been sent")
 	} else {
 			encoded_string.Url = utils.Hash_func(url_req.Url)
-			if err := db_insert_url(encoded_string.Url, url_req.Url, db); err != nil{
+			if err := database.Db_insert_url(encoded_string.Url, url_req.Url, db); err != nil{
 				utils.If_error_response(w, errors.New("db adding data error"), http.StatusInternalServerError)
 				return
 			}
@@ -63,7 +63,7 @@ func long_output_handle_PG(w http.ResponseWriter, r *http.Request, db *sql.DB){
 	if err_json := utils.Decoder_json(&url_req, r.Body); err_json != nil{	
 		utils.If_error_response(w, err_json, http.StatusBadRequest)
 	}
-	decoded_string.Url, err = Db_get_long_url(url_req.Url, db)
+	decoded_string.Url, err = database.Db_get_long_url(url_req.Url, db)
 	if err != nil{
 		utils.If_error_response(w, errors.New("getting long url from db error"), http.StatusBadRequest)
 	}

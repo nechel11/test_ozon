@@ -10,12 +10,10 @@ import (
 
 
 func Cache_handler(w http.ResponseWriter, r *http.Request, map_short_key map[string]models.JsonUrl, map_long_key map[string]models.JsonUrl){
-	log.Println("entered handker")
-
 	if r.Method == "POST"{
 		short_output_handle_Cache(w, r, map_short_key, map_long_key)
 	} else if r.Method == "GET"{
-		long_output_handle_Cache(w, r, map_short_key, map_long_key)
+		long_output_handle_Cache(w, r, map_short_key)
 	} else{
 		utils.If_error_response(w, errors.New("invalid method"), http.StatusBadRequest)
 		return
@@ -38,7 +36,7 @@ func short_output_handle_Cache(w http.ResponseWriter, r *http.Request, map_short
 	utils.Send_response(w, encoded_string)
 }
 
-func long_output_handle_Cache(w http.ResponseWriter, r *http.Request, map_short_key map[string]models.JsonUrl, map_long_key map[string]models.JsonUrl){
+func long_output_handle_Cache(w http.ResponseWriter, r *http.Request, map_short_key map[string]models.JsonUrl){
 	var url_req models.JsonUrl
 	
 	if err_json := utils.Decoder_json(&url_req, r.Body); err_json != nil{	
