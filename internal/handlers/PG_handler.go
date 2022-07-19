@@ -1,25 +1,26 @@
-package internal
+package handlers
 
 import (
 	"database/sql"
 	"errors"
 	"log"
 	"net/http"
+	"github.com/nechel11/test_ozon/internal/database"
 )
 
 func PG_handler(w http.ResponseWriter, r *http.Request){
 	var db *sql.DB = Db_connect()
 	if r.Method == "POST"{
-		short_url_handle_PG(w, r, db)
+		short_output_handle_PG(w, r, db)
 	} else if r.Method == "GET"{
-		long_url_handle_PG(w, r, db)
+		long_output_handle_PG(w, r, db)
 	} else{
 		if_error_response(w, errors.New("invalid method"), http.StatusBadRequest)
 		return
 	}
 }
 
-func short_url_handle_PG(w http.ResponseWriter, r *http.Request, db *sql.DB){
+func short_output_handle_PG(w http.ResponseWriter, r *http.Request, db *sql.DB){
 	
 	var url_req JsonUrl
 	var encoded_string JsonUrl
@@ -52,7 +53,7 @@ func short_url_handle_PG(w http.ResponseWriter, r *http.Request, db *sql.DB){
 	send_response(w, encoded_string)	
 }
 
-func long_url_handle_PG(w http.ResponseWriter, r *http.Request, db *sql.DB){
+func long_output_handle_PG(w http.ResponseWriter, r *http.Request, db *sql.DB){
 	var url_req JsonUrl
 	var decoded_string JsonUrl
 	var err error
