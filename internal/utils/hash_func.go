@@ -6,7 +6,7 @@ import (
 )
 
 // hash function
-func hash_func(s string) string{
+func Hash_func(s string) string{
 	md5 := MD5_cutter_len10(MD5(s))
 	specified_string := string_to_spec(md5)
 	return specified_string

@@ -1,4 +1,4 @@
-package database
+package base
 
 import (
 	"database/sql"
@@ -26,7 +26,7 @@ func Db_connect() *sql.DB{
 }
 
 
-func db_insert_url(short_url, long_url string, db *sql.DB) error{
+func Db_insert_url(short_url, long_url string, db *sql.DB) error{
 	_, err := db.Exec(fmt.Sprintf("INSERT INTO records (long_url, short_url) VALUES ('%s', '%s')", long_url, short_url))
 	if err != nil {		
 		return err
@@ -34,7 +34,7 @@ func db_insert_url(short_url, long_url string, db *sql.DB) error{
 	return nil
 }
 
-func db_if_data_exists(flag *bool,long_url string, db *sql.DB) (error){
+func Db_if_data_exists(flag *bool,long_url string, db *sql.DB) (error){
 	record, err := db.Query(fmt.Sprintf("SELECT EXISTS(SELECT 1 FROM records where long_url = '%s')", long_url))
 	if err != nil{
 		return  err
@@ -49,7 +49,7 @@ func db_if_data_exists(flag *bool,long_url string, db *sql.DB) (error){
 	return nil
 }
 
-func db_get_short_url(long_url string, db *sql.DB) (string, error){
+func Db_get_short_url(long_url string, db *sql.DB) (string, error){
 	var res string
 
 	record, err := db.Query(fmt.Sprintf("SELECT short_url FROM records WHERE long_url = ('%s')", long_url))
@@ -66,7 +66,7 @@ func db_get_short_url(long_url string, db *sql.DB) (string, error){
 	return res, nil
 }
 
-func db_get_long_url(short_url string, db *sql.DB) (string, error){
+func Db_get_long_url(short_url string, db *sql.DB) (string, error){
 	var res string
 
 	record, err := db.Query(fmt.Sprintf("SELECT long_url FROM records WHERE short_url = ('%s')", short_url))
