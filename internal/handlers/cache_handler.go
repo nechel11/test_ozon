@@ -15,7 +15,7 @@ func Cache_handler(w http.ResponseWriter, r *http.Request, map_short_key map[str
 	} else if r.Method == "GET"{
 		long_output_handle_Cache(w, r, map_short_key)
 	} else{
-		utils.If_error_response(w, errors.New("invalid method"), http.StatusBadRequest)
+		utils.If_error_response(w, errors.New("invalid method error"), http.StatusBadRequest)
 		return
 	}
 }
@@ -27,6 +27,10 @@ func short_output_handle_Cache(w http.ResponseWriter, r *http.Request, map_short
 	if err := utils.Decoder_json(&url_req, r.Body); err != nil{	
 		utils.If_error_response(w, err, http.StatusBadRequest)
 		return
+	}
+	if len(url_req.Url) == 0{
+		utils.Send_response(w, encoded_string)
+		return	
 	}
 	encoded_string.Url = utils.Hash_func(url_req.Url)
 	map_long_key[url_req.Url] = encoded_string

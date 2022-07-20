@@ -12,7 +12,7 @@ import (
 
 func If_error_response(w http.ResponseWriter, err error, number int){
 	log.Println(err.Error(), number)
-	http.Error(w, strconv.Itoa(number), number)
+	http.Error(w, strconv.Itoa(number) + " " + err.Error(), number)
 }
 
 // send response to client fucntion

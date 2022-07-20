@@ -30,8 +30,12 @@ func short_output_handle_PG(w http.ResponseWriter, r *http.Request, db *sql.DB){
 
 	log.Println("Connected to db")
 	if err := utils.Decoder_json(&url_req, r.Body); err != nil{	
-		utils.If_error_response(w, err, http.StatusBadRequest)
+		utils.If_error_response(w, errors.New(`"json decoding error. request should be {"url" : "value"}"`), http.StatusBadRequest)
 		return
+	}
+	if len(url_req.Url) == 0{
+		utils.Send_response(w, encoded_string)
+		return	
 	}
 	if err := database.Db_if_data_exists(&if_short_exists, url_req.Url, db); err != nil{
 		utils.If_error_response(w, errors.New("db check for existence error"), http.StatusInternalServerError)
@@ -61,11 +65,13 @@ func long_output_handle_PG(w http.ResponseWriter, r *http.Request, db *sql.DB){
 	var err error
 
 	if err_json := utils.Decoder_json(&url_req, r.Body); err_json != nil{	
-		utils.If_error_response(w, err_json, http.StatusBadRequest)
+		utils.If_error_response(w, errors.New(`"json decoding error. request should be {"url" : "value"}"`), http.StatusBadRequest)
+		return
 	}
 	decoded_string.Url, err = database.Db_get_long_url(url_req.Url, db)
 	if err != nil{
 		utils.If_error_response(w, errors.New("getting long url from db error"), http.StatusBadRequest)
+		return
 	}
 	utils.Send_response(w, decoded_string)
 }
