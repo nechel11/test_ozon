@@ -33,7 +33,7 @@ func main(){
 	flag.StringVar(&storageType, "storage", "pg",
 		"choose storage : pg for postgres, cache for internal memory")
 	flag.Parse()
-	log.Println("Server http://localhost:8070")
+	log.Println("server http://localhost:8070")
 	handlefunc(storageType)
 	
 }

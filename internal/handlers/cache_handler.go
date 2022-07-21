@@ -25,7 +25,7 @@ func short_output_handle_Cache(w http.ResponseWriter, r *http.Request, map_short
 	var encoded_string models.JsonUrl
 	
 	if err := utils.Decoder_json(&url_req, r.Body); err != nil{	
-		utils.If_error_response(w, errors.New(`"json decoding error. request should be {"url" : "value"}"`), http.StatusBadRequest)
+		utils.If_error_response(w, errors.New(`json decoding error. request should be {"url" : "value"}`), http.StatusBadRequest)
 		return
 	}
 	if len(url_req.Url) == 0{
@@ -44,7 +44,7 @@ func long_output_handle_Cache(w http.ResponseWriter, r *http.Request, map_short_
 	var url_req models.JsonUrl
 	
 	if err_json := utils.Decoder_json(&url_req, r.Body); err_json != nil{	
-		utils.If_error_response(w, errors.New(`"json decoding error. request should be {"url" : "value"}"`), http.StatusBadRequest)
+		utils.If_error_response(w, errors.New(`json decoding error. request should be {"url" : "value"}`), http.StatusBadRequest)
 		return
 	}
 	utils.Send_response(w, map_short_key[url_req.Url])
