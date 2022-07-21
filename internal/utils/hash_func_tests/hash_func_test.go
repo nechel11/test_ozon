@@ -60,7 +60,6 @@ func duplicates_in_file(s string) bool{
 	counts := make(map[string]int)
 	lineCountsInFiles := make(map[string]map[string]int)
 
-
 	f, err := os.Open(s)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Problem reading %v: %v\n", s, err)

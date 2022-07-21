@@ -18,6 +18,7 @@ func If_error_response(w http.ResponseWriter, err error, number int){
 // send response to client fucntion
 
 func Send_response(w http.ResponseWriter, response interface{}){
+	log.Println("response is", response)
 	w.Header().Set("Content-Type", "application/json")
 	err := json.NewEncoder(w).Encode(response)
 	if err != nil {
