@@ -3,43 +3,43 @@ package utils
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"math/big"
 )
 
 // hash function
+
 func Hash_func(s string) string{
-	md5 := MD5_cutter_len10(MD5(s))
-	specified_string := string_to_spec(md5)
-	return specified_string
+	md5 := MD5(s)
+	tmp_int64 := MD5_to_decimal(md5)
+	res := decimal_to_hash(tmp_int64)
+	return res
 }
 
-//MD5 string to specified string
-func string_to_spec(s string) string{
-	codeDict := []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_")
-	var nearest_prime rune  = 67 // nearest prime to len(codeDict)
-	len := len(codeDict)
+func decimal_to_hash(tmp int64) string{
 	var res string
-	for _,v:=range(s){
-		tmp := (v * nearest_prime) % rune(len)
-		res = res + string(codeDict[tmp])
+	var tmp_mod int64
+	codeDict := []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_")
+	len := len(codeDict)
+	for i:=0; i<10; i++{
+		tmp_mod = tmp % int64(len)
+		tmp = tmp / int64(len)
+		res += string(codeDict[tmp_mod])
 	}
 	return res
 }
 
-// MD5 string to MD5 len10 string
-func MD5_cutter_len10(s string) string {	
-	var tmp string
-	for i,v := range(s[2:]){
-		if i % 3 == 0{
-			tmp = tmp + string(v)
-		}
-		i++
-	}
+func MD5_to_decimal(hexstr string)int64{
+	var tmp int64
+
+	len_str := len(hexstr) / 2 - 1
+	big_int := big.NewInt(0)
+	big_tmp,_ := big_int.SetString(hexstr[:len_str], 16)
+	tmp = int64(big_tmp.Uint64())
 	return tmp
 }
 
-// short url to MD5 string
 func MD5(text string) string {
-    algorithm := md5.New()
-    algorithm.Write([]byte(text))
-    return hex.EncodeToString(algorithm.Sum(nil))
+	algorithm := md5.New()
+	algorithm.Write([]byte(text))
+	return hex.EncodeToString(algorithm.Sum(nil))
 }
