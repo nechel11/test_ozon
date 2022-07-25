@@ -7,16 +7,8 @@ import (
 	_ "github.com/lib/pq"
 )
 
-const  (
-	db_host = "127.0.0.1" 
-	db_port=5432
-	db_name="ozon"
-	db_user = "zafar"
-	db_password="12344321"
-)
-
 func Db_connect() *sql.DB{
-	psqconn := fmt.Sprintf("host= %s port = %d user = %s password = %s dbname = %s sslmode=disable", db_host, db_port, db_user, db_password, db_name)
+	psqconn := get_env()
 	db, err := sql.Open("postgres", psqconn)
 	if err != nil {
 		log.Fatal("can not access to DB", err)
