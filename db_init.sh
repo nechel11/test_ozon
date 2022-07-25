@@ -1,6 +1,6 @@
 #!/bin/bash
 if ! [ $1 ] && ! [ $2 ] && ! [ $3 ] && ! [ $4 ] && ! [ $5 ] ; then
-	echo "enter pg_host, db_port, db_name, db_user and db_password"
+	echo "enter db_host, db_port, db_name, db_user and db_password"
 	fi
 
 if [ $1 ] && [ $2 ] && [ $3 ] && [ $4 ] && [ $5 ]; then

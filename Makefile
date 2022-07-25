@@ -8,5 +8,4 @@ run_pg:
 	$(APP)
 run_im:
 	$(APP) -storage cache
-env:
-	.	./db_init.sh
+	
