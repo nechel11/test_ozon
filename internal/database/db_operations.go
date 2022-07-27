@@ -8,7 +8,7 @@ import (
 )
 
 func Db_connect() *sql.DB{
-	psqconn := get_env()
+	psqconn := Get_env()
 	db, err := sql.Open("postgres", psqconn)
 	if err != nil {
 		log.Fatal("can not access to DB", err)

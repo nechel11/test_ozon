@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"github.com/nechel11/test_ozon/internal/handlers"
 	"github.com/nechel11/test_ozon/internal/models"
+	"github.com/nechel11/test_ozon/internal/database"
 	"flag"
 )
 
@@ -25,15 +26,16 @@ func handlefunc(flag string){
 		log.Fatal("wrong storage")
 		return
 	}
-	http.ListenAndServe("localhost:8070", nil)
+	http.ListenAndServe("0.0.0.0:8080", nil)
 }
 
 func main(){
+	log.Println(database.Get_env())
 	var storageType string
 	flag.StringVar(&storageType, "storage", "pg",
 		"choose storage : pg for postgres, cache for internal memory")
 	flag.Parse()
-	log.Println("server http://localhost:8070")
+	log.Println("server http://localhost:8080")
 	handlefunc(storageType)
 	
 }

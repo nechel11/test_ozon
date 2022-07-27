@@ -1,14 +1,10 @@
 FROM golang:1.18.3
 
-RUN mkdir ozon
-COPY ./ ./ozon
+RUN mkdir -p ozon
+COPY ./ /ozon
 WORKDIR /ozon
 
-
-RUN apt-get update
-RUN apt-get -y install postgresql-client
-RUN . ./db_init.sh $(cat configs/pg_config)
 RUN go mod download
-RUN go build -o app ./cmd/app/main.go
+RUN go build -o ./bin/app ./cmd/apiserver/main.go 
 
-CMD ["./app"]
+ENTRYPOINT ["./bin/app"]
