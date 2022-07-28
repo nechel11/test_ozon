@@ -11,7 +11,11 @@ import (
 )
 
 func PG_handler(w http.ResponseWriter, r *http.Request){
-	var db *sql.DB = database.Db_connect()
+	var db, err  = database.Db_connect()
+	if err != nil{
+		utils.If_error_response(w, errors.New("connection to db error"), http.StatusBadRequest)
+		return
+	}
 	if r.Method == "POST"{
 		short_output_handle_PG(w, r, db)
 	} else if r.Method == "GET"{

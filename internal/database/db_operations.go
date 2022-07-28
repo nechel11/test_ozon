@@ -3,17 +3,16 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	_ "github.com/lib/pq"
 )
 
-func Db_connect() *sql.DB{
+func Db_connect() (*sql.DB, error){
 	psqconn := Get_env()
 	db, err := sql.Open("postgres", psqconn)
 	if err != nil {
-		log.Fatal("can not access to DB", err)
+		return db, err
 	}
-	return db
+	return db, nil
 }
 
 func Db_insert_url(short_url, long_url string, db *sql.DB) error{
@@ -32,7 +31,6 @@ func Db_if_data_exists(flag *bool,long_url string, db *sql.DB) (error){
 	for record.Next(){
 		err = record.Scan(flag)
 		if err != nil {
-			log.Fatal("can not check if data exists", err)
 			return err
 		}
 	}
@@ -49,7 +47,6 @@ func Db_get_short_url(long_url string, db *sql.DB) (string, error){
 	for record.Next(){
 		err = record.Scan(&res)
 		if err != nil{
-			log.Fatal("can not select short_url from db")
 			return res, err
 		}
 	}
@@ -66,7 +63,6 @@ func Db_get_long_url(short_url string, db *sql.DB) (string, error){
 	for record.Next(){
 		err = record.Scan(&res)
 		if err != nil{
-			log.Fatal("can not select long_url from db")
 			return res, err
 		}
 	}
