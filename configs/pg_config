@@ -1,5 +1,1 @@
-host - 127.0.0.1
-port - 5432
-db_name - ozon
-db_user - zafar
-db_password - 12344321
+postgres://zafar:12344321@127.0.0.1:5432/ozon?sslmode=disable

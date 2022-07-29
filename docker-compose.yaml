@@ -1,21 +1,6 @@
 version: '3.5'
 
 services:
-  app_db:
-    container_name: ozon_app_pg
-    build: ./
-    command: ./wait-for-postgres.sh db ./bin/app
-    ports:
-      - "8040:8080"
-    depends_on:
-      - db
-    environment:
-      db_host: 0.0.0.0
-      db_port: 5432
-      db_name: postgres
-      db_user: postgres
-      db_password: postgres
-
   db:
     container_name: ozon_app_db
     restart: always
@@ -29,6 +14,18 @@ services:
       - ./postgres/:/docker-entrypoint-initdb.d/
     ports:
       - "54321:5432"
+    
+  app_db:
+    container_name: ozon_app_pg
+    build: ./
+    links:
+      - db
+    ports:
+      - "8040:8080"
+    depends_on:
+      - db
+    environment:
+      db_url : postgres://postgres:postgres@db:5432/postgres?sslmode=disable
 
 volumes:
   db-data:

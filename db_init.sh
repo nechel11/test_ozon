@@ -1,13 +1,3 @@
-#!/bin/bash
-if ! [ $1 ] && ! [ $2 ] && ! [ $3 ] && ! [ $4 ] && ! [ $5 ] ; then
-	echo "enter db_host, db_port, db_name, db_user and db_password"
-	fi
 
-if [ $1 ] && [ $2 ] && [ $3 ] && [ $4 ] && [ $5 ]; then
-	export	"db_host=$1" 
-	export	"db_port=$2"
-	export	"db_name=$3"
-	export	"db_user=$4"
-	export	"db_password=$5"
-	echo "database env has been imported"
-	fi
+export	"db_url=postgres://zafar:12344321@127.0.0.1:5432/ozon?sslmode=disable" 
+echo "database env has been imported"
