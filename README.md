@@ -11,8 +11,7 @@
 1. [Тестирование](#Тестирование)
 <!-- ToC end -->
 
-# Демонстрация работы 
-![ozon_test](https://user-images.githubusercontent.com/91884862/182147188-d981301f-714a-422a-8d09-7d3445c6d769.gif)
+
 
 # Задание
 
@@ -31,6 +30,8 @@
 - В качестве хранилища ожидается использовать in-memory решение И postgresql. Какое хранилище использовать указывается параметром при запуске сервиса.
 - Покрыть реализованный функционал Unit-тестами
 
+# Демонстрация работы 
+![ozon_test](https://user-images.githubusercontent.com/91884862/182147188-d981301f-714a-422a-8d09-7d3445c6d769.gif)
 
 **Структура проекта:**
 ```
@@ -46,11 +47,6 @@
 ├── postgres            	// SQL файлы с миграциями
 └── configs             	// конфиг файл postgres
 ```
-
-# API
-
-> 1) Тело запроса/ответа - в формате JSON.
-> 2) В случае ошибки возвращается необходимый HTTP код, в теле содержится описание ошибки (пример: ```{"error": "something went wrong"}```).
 
 **Пример**
 
@@ -84,38 +80,4 @@ curl --request GET --data '{"url" : "Li0QUvKTcT"}' http://localhost:8080/
 {
    {"url":"ozon"}
 }
-```
-
-# Сборка и запуск
-## С помощью docker-compose
-### Запуск с in-memory хранилищем
-```
-docker-compose build app_im
-docker-compose run -p 127.0.0.1:8080:8080 -d app_im
-```
-### Запуск с postgresql хранилищем
-```
-docker-compose build app_db
-docker-compose run -p 127.0.0.1:8080:8080 -d app_db
-```
-
-## С помощью Makefile
-### Запуск с in-memory хранилищем
-```
-make fmt
-make build
-make run_im
-```
-### Запуск с postgresql хранилищем
-```
-make fmt
-make build
-make run_db
-```
-
-# Тестирование
-## Запуск юнит-тестов
-```
-make generate
-make test
 ```
