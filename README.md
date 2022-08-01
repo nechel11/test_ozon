@@ -58,10 +58,7 @@ curl --request POST --data '{"url" : "ozon"}' http://localhost:8080/
 Ответ:
 
 ```
-{
    {"url":"Li0QUvKTcT"}
-
-}
 ```
 
 
@@ -76,9 +73,7 @@ curl --request GET --data '{"url" : "Li0QUvKTcT"}' http://localhost:8080/
 Ответ:
 
 ```
-{
    {"url":"ozon"}
-}
 ```
 # Запуск
 
