@@ -11,10 +11,14 @@ run_pg:
 	$(APP) -storage pg
 run_im:
 	$(APP) -storage cache
-docker_build:
+docker_build_im:
 	docker build -t $(IMG_NAME):$(IMG_VERSION) .
 docker_run_im:
 	docker run -d -p 8080:8080 $(IMG_NAME):$(IMG_VERSION)
+docker_build_pg:
+	docker-compose build
+docker_run_pg:
+	docker-compose up
 post: 
 	curl --request POST --data '{"url" : "ozon"}' http://localhost:8080/
 get: 
