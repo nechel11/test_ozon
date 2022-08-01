@@ -81,16 +81,22 @@ curl --request GET --data '{"url" : "Li0QUvKTcT"}' http://localhost:8080/
 }
 ```
 # Запуск
-**Запуск на текущей машине **
 
-Запуск с postgres хранилищем
+**Запуск на текущей машине**
+
+**Запуск на текущей машине с postgres хранилищем**
 ```
 source ./db_init.sh $(sed -n 4p configs/pg_config)
 make build
 make run_pg
 ```
 
-Запуск с internal memory хранилищем
+**Запуск на текущей машине с internal memory хранилищем** 
+```
+make build
+make run_im
+```
+**Запуск ВМ docker с internal memory хранилищем** 
 ```
 make build
 make run_im
