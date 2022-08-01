@@ -1,3 +1,4 @@
-
-export	"db_url=postgres://zafar:12344321@127.0.0.1:5432/ozon?sslmode=disable" 
-echo "database env has been imported"
+if [ $1 ] ; then
+	export	"db_url=$1" 
+	echo "database env has been imported"
+	fi

@@ -1,1 +1,5 @@
+your URL should be "postgres://{user}:{password}@{hostname}:{port}/{database-name}?sslmode={your mode}"
+
+↓↓↓ type your connection URL HERE ↓↓↓
 postgres://zafar:12344321@127.0.0.1:5432/ozon?sslmode=disable
+↑↑↑ type your connection URL HERE ↑↑↑

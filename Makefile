@@ -1,6 +1,7 @@
 APP=./bin/app
 IMG_NAME = ozon
 IMG_VERSION = latest
+SHELL := /bin/bash
 
 build:
 	go build -o $(APP) ./cmd/apiserver/main.go
@@ -18,5 +19,3 @@ post:
 	curl --request POST --data '{"url" : "ozon"}' http://localhost:8080/
 get: 
 	curl --request GET --data '{"url" : "Li0QUvKTcT"}' http://localhost:8080/
-env :
-	. ./db_init.sh
