@@ -19,3 +19,5 @@ post:
 	curl --request POST --data '{"url" : "ozon"}' http://localhost:8080/
 get: 
 	curl --request GET --data '{"url" : "Li0QUvKTcT"}' http://localhost:8080/
+
+# source ./db_init.sh $(sed -n 4p configs/pg_config)

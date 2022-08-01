@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"github.com/nechel11/test_ozon/internal/handlers"
 	"github.com/nechel11/test_ozon/internal/models"
-	"github.com/nechel11/test_ozon/internal/database"
 	"flag"
 )
 
@@ -30,7 +29,6 @@ func handlefunc(flag string){
 }
 
 func main(){
-	log.Println(database.Get_env())
 	var storageType string
 	flag.StringVar(&storageType, "storage", "pg",
 		"choose storage : pg for postgres, cache for internal memory")
