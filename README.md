@@ -6,7 +6,7 @@
 
 1. [Описание задачи](#Задание)
 1. [Демонстрация работы](#Демонстрация-работы)
-3. [Сборка и запуск](#Сборка-и-запуск)
+3. [Запуск](#Запуск)
 4. [Тестирование](#Тестирование)
 <!-- ToC end -->
 
@@ -79,4 +79,19 @@ curl --request GET --data '{"url" : "Li0QUvKTcT"}' http://localhost:8080/
 {
    {"url":"ozon"}
 }
+```
+# Запуск
+**Запуск на текущей машине **
+
+Запуск с postgres хранилищем
+```
+source ./db_init.sh $(sed -n 4p configs/pg_config)
+make build
+make run_pg
+```
+
+Запуск с internal memory хранилищем
+```
+make build
+make run_im
 ```
