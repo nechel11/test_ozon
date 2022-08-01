@@ -91,13 +91,23 @@ make run_pg
 
 **Запуск на текущей машине с internal memory хранилищем** 
 ```
-make build
+make docker_build_im
 make run_im
 ```
 **Запуск ВМ docker с internal memory хранилищем** 
 ```
-make docker_build
+make docker_build_im
 make docker_run_im
 ```
 **Запуск ВМ docker с postgres хранилищем** 
+```
+make docker_build_pg
+make docker_run_pg
+```
 
+# Тестирование
+
+```
+source ./db_init.sh $(sed -n 4p configs/pg_config)
+make test
+```
