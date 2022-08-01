@@ -43,7 +43,7 @@
 │       ├── hash_func    	// хэш функция
 │       ├── json_parse    	// парсинг JSON
 │       ├── responses    	// обработчик ответов
-├── postgres            	// SQL файлы с миграциями
+├── postgres            	// SQL файл с миграциями
 └── configs             	// конфиг файл postgres
 ```
 
@@ -81,8 +81,6 @@ curl --request GET --data '{"url" : "Li0QUvKTcT"}' http://localhost:8080/
 }
 ```
 # Запуск
-
-**Запуск на текущей машине**
 
 **Запуск на текущей машине с postgres хранилищем**
 ```
