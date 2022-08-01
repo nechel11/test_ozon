@@ -96,6 +96,8 @@ make run_im
 ```
 **Запуск ВМ docker с internal memory хранилищем** 
 ```
-make build
-make run_im
+make docker_build
+make docker_run_im
 ```
+**Запуск ВМ docker с postgres хранилищем** 
+
