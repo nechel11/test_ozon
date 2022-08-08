@@ -11,4 +11,4 @@ RUN go mod download
 RUN go build -o ./bin/app ./cmd/apiserver/main.go 
 
 
-ENTRYPOINT ["./bin/app"]
+ENTRYPOINT ["./bin/app", "-storage", "cache"]
